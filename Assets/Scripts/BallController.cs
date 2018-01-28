@@ -7,14 +7,12 @@ public class BallController : MonoBehaviour {
     [SerializeField] private AudioClip hitSound;
 
     private new Rigidbody2D rigidbody;
-    private new AudioSource audio;
     private bool isActive;
     private Vector2 initialForce;
     private Vector3 startPosition;
 
     private void Awake() {
         rigidbody = GetComponent<Rigidbody2D>();
-        audio = GetComponent<AudioSource>();
     }
 
     private void Start() {
@@ -54,7 +52,7 @@ public class BallController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if(isActive) {
-            audio.PlayOneShot(hitSound);
+            Managers.Audio.PlaySound(hitSound);
         }
     }
 }

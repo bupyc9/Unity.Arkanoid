@@ -9,16 +9,13 @@ public class HUDController : MonoBehaviour {
     [SerializeField] private AudioClip lifeSound;
     [SerializeField] private AudioClip pointSound;
     [SerializeField] private RectTransform livesBar;
-    [SerializeField] private ToggleSprite muteButton;
 
-    private new AudioSource audio;
     private Transform[] hearts = new Transform[3];
 
     [SerializeField] private int lives = 3;
     [SerializeField] private int score = 0;
 
     private void Awake() {
-        audio = GetComponent<AudioSource>();
         for(int i = 0; i < hearts.Length; i++) {
             hearts[i] = livesBar.transform.GetChild(i);
         }
@@ -38,7 +35,7 @@ public class HUDController : MonoBehaviour {
     }
 
     private void OnChangeScore(int score) {
-        audio.PlayOneShot(pointSound);
+        Managers.Audio.PlaySound(pointSound);
         UpdateScore(score);
     }
 
@@ -48,7 +45,7 @@ public class HUDController : MonoBehaviour {
     }
 
     private void OnChangeLives(int lives) {
-        audio.PlayOneShot(lifeSound);
+        Managers.Audio.PlaySound(lifeSound);
         UpdateLives(lives);
     }
 
@@ -60,10 +57,5 @@ public class HUDController : MonoBehaviour {
                 hearts[i].gameObject.SetActive(false);
             }
         }
-    }
-
-    public void OnSoundToggle() {
-        muteButton.IsOn = !muteButton.IsOn;
-        AudioListener.pause = !muteButton.IsOn;
     }
 }
